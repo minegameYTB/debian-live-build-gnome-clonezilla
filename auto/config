@@ -2,29 +2,26 @@
 
 set -e
 
-mirror_url="https://www.nic.funet.fi/debian/"
+#mirror_url="https://www.nic.funet.fi/debian/"
 
-case "$(dpkg --print-architecture)" in
-	amd64)
-		_SOURCE="true"
-		;;
-
-	i386)
-		_SOURCE="false"
-		;;
-esac
+#case "$(dpkg --print-architecture)" in
+#	amd64)
+#		_SOURCE="true"
+#		;;
+#
+#	i386)
+#		_SOURCE="false"
+#		;;
+#esac
 
 lb config noauto \
 	--clean \
 	--ignore-system-defaults \
 	--mode debian \
-	--distribution bullseye \
-	--archive-areas "main contrib non-free" \
+	--distribution bookworm \
+	--archive-areas "main contrib non-free non-free-firmware" \
 	--debian-installer live \
-	--linux-packages "linux-image-5.19.0-0.deb11.2 linux-headers-5.19.0-0.deb11.2" \
-	--source "${_SOURCE}" \
-	--backports true \
-	--mirror-binary $mirror_url \
-	--mirror-binary-updates $mirror_url \
-	--mirror-binary-backports $mirror_url \
+	--linux-packages "linux-image linux-headers" \
+#	--source "${_SOURCE}" \
+
 "${@}"
